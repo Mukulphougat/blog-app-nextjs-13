@@ -1,5 +1,6 @@
-import NextAuth, { User} from "next-auth";
+import NextAuth, {NextAuthOptions, User} from "next-auth";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
+import client from "@/utils/prismadb";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prismadb from "@/utils/prismadb";
@@ -9,8 +10,8 @@ import prismadb from "@/utils/prismadb";
 //
 // })
 // const handler=NextAuth(authOptions);
-const authOptions=NextAuth({
-    adapter: PrismaAdapter(prismadb),
+const handler = NextAuth({
+    adapter: PrismaAdapter(client),
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID! as string,
@@ -29,7 +30,7 @@ const authOptions=NextAuth({
                 if ( !credentials.email || !credentials.password ) {
                     throw new Error('Please enter a valid email and password');
                 }
-                const user=await prismadb.user.findUnique({
+                const user=await client.user.findUnique({
                     where: {
                         email: credentials.email,
                     }
@@ -47,7 +48,12 @@ const authOptions=NextAuth({
     session: {
         strategy: "jwt"
     },
+    callbacks: {
+        session({ session, token, user }) {
+            return session // The return type will match the one returned in `useSession()`
+        },
+    },
     debug: process.env.NODE_ENV === "development",
 });
-const handler = NextAuth(authOptions);
+
 export { handler as GET, handler as POST};
