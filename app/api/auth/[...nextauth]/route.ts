@@ -1,6 +1,5 @@
 import NextAuth, {NextAuthOptions, User} from "next-auth";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
-import client from "@/utils/prismadb";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prismadb from "@/utils/prismadb";
@@ -10,7 +9,7 @@ import prismadb from "@/utils/prismadb";
 //
 // })
 // const handler=NextAuth(authOptions);
-export const authOptions=NextAuth({
+export const authOptions:NextAuthOptions=NextAuth({
     adapter: PrismaAdapter(prismadb),
     providers: [
         GithubProvider({
@@ -47,11 +46,6 @@ export const authOptions=NextAuth({
     secret: process.env.SECRET,
     session: {
         strategy: "jwt"
-    },
-    callbacks: {
-        session({ session, token, user }) {
-            return session // The return type will match the one returned in `useSession()`
-        },
     },
     debug: process.env.NODE_ENV === "development",
 });
