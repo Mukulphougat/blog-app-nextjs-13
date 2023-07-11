@@ -8,6 +8,7 @@ export default function Header(){
     return (
         <div className={"w-full h-12 bg-white justify-between text-blue-500 flex flex-row"}>
             {
+                // Add Something
                 session?.status == "authenticated" &&
                 <>
                     <Link className={"mx-2 my-3 text-xl"} href={"/"}>
