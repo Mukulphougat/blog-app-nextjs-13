@@ -1,9 +1,4 @@
 import {NextRequest, NextResponse} from "next/server";
-import {Prisma, PrismaClient} from "@prisma/client";
-import {json} from "stream/consumers";
-import {NextApiRequest} from "next";
-import {id} from "postcss-selector-parser";
-import LinkWhereInput = Prisma.LinkWhereInput;
 import client from "@/utils/prismadb";
 // const prismaClient=new PrismaClient();
 export async function GET(){

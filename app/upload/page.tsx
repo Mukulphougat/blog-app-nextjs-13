@@ -26,7 +26,7 @@ export default function Upload(){
             title: z.string().min(1, "Title is required"),
             url: z.string().url("Invalid URL").min(5,"URL is required"),
             imageURL: z.string().url("Invalid URL").min(5,"URL is required"),
-            id: z.number().min(1).max(2),
+            id: z.number().min(1).max(1000),
             description: z.string().min(1,"Description is required")
         })
     const {register,watch,handleSubmit,formState: {errors,isSubmitting}}=useForm<formData>({resolver: zodResolver(formSchema)})
