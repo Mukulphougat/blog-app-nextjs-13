@@ -9,12 +9,12 @@ import prismadb from "@/utils/prismadb";
 //
 // })
 // const handler=NextAuth(authOptions);
-export const authOptions=NextAuth({
+export const authOptions:NextAuthOptions=NextAuth({
     adapter: PrismaAdapter(prismadb),
     providers: [
         GithubProvider({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET,
+            clientId: process.env.GITHUB_ID! as string,
+            clientSecret: process.env.GITHUB_SECRET! as string,
         }),
         CredentialsProvider({
             name: "Credentials",
@@ -38,7 +38,7 @@ export const authOptions=NextAuth({
                 if ( user.password !== credentials.password ) {
                     throw new Error("Password doesn't match")
                 }
-                const authenticatedUser={id: user.id,name: user.name, email: user.email};
+                const authenticatedUser:User={id: <unknown>user.id as string,name: user.name, email: user.email};
                 return authenticatedUser;
             }
         }),
