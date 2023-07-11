@@ -1,4 +1,4 @@
-import NextAuth, {NextAuthOptions, User} from "next-auth";
+import NextAuth, { User} from "next-auth";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -9,7 +9,7 @@ import prismadb from "@/utils/prismadb";
 //
 // })
 // const handler=NextAuth(authOptions);
-export const authOptions:NextAuthOptions=NextAuth({
+const authOptions=NextAuth({
     adapter: PrismaAdapter(prismadb),
     providers: [
         GithubProvider({
@@ -50,5 +50,4 @@ export const authOptions:NextAuthOptions=NextAuth({
     debug: process.env.NODE_ENV === "development",
 });
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST};
