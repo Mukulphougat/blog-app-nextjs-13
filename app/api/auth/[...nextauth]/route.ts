@@ -10,7 +10,7 @@ import prismadb from "@/utils/prismadb";
 //
 // })
 // const handler=NextAuth(authOptions);
-const handler = NextAuth({
+export const authOptions=NextAuth({
     adapter: PrismaAdapter(prismadb),
     providers: [
         GithubProvider({
@@ -55,5 +55,6 @@ const handler = NextAuth({
     },
     debug: process.env.NODE_ENV === "development",
 });
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST};
