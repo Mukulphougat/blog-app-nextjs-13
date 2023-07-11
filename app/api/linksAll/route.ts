@@ -1,8 +1,9 @@
 import {NextRequest, NextResponse} from "next/server";
 import client from "@/utils/prismadb";
-// const prismaClient=new PrismaClient();
+import {PrismaClient} from "@prisma/client";
+const prismaClient=new PrismaClient();
 export async function GET(){
-    const response=await client.link.findMany()
+    const response=await prismaClient.link.findMany()
     return new Response(JSON.stringify(response))
 }
 export async function POST(req: NextRequest){
@@ -25,7 +26,7 @@ export async function DELETE(req: NextRequest){
     if ( body !== null ) {
         console.log(body.id)
         // const response=await prismaClient.link.findUnique({where: {id: 5}})
-        const delResponse=await client.link.delete({where: {id: body.id}, select: {title: true}})
+        const delResponse=await prismaClient.link.delete({where: {id: body.id}, select: {title: true}})
         const messagePro=delResponse.title+ " Link Deleted";
         return NextResponse.json({message: messagePro, status: 200});
     }

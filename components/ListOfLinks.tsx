@@ -7,7 +7,7 @@ const fetcher= async (url:string) => {
     return response.json()
 }
 export default function ListOfLinks(){
-    const {data,isLoading}=useSWR("http://localhost:3000/api/linksAll", fetcher)
+    const {data}=useSWR("http://localhost:3000/api/linksAll", fetcher)
 
     return (
         <div className={"w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"}>
