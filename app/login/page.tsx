@@ -112,10 +112,10 @@ export default function Login() {
                                     <img width="48" height="48" src="https://img.icons8.com/ios-glyphs/60/github.png" alt="github"/>
                                 </button>
                             </div>
-                            <div className={"w-full my-2 flex flex-row justify-evenly border-2 border-gray-300 rounded-lg"}>
-                                <button onClick={() => signIn('google')} className={"bg-white text-white"}>
-                                    <img width="48" height="48" src="https://img.icons8.com/fluency/48/google-logo.png" alt="google-logo"/>                        </button>
-                            </div>
+                            {/*<div className={"w-full my-2 flex flex-row justify-evenly border-2 border-gray-300 rounded-lg"}>*/}
+                            {/*    <button onClick={() => signIn('google')} className={"bg-white text-white"}>*/}
+                            {/*        <img width="48" height="48" src="https://img.icons8.com/fluency/48/google-logo.png" alt="google-logo"/>                        </button>*/}
+                            {/*</div>*/}
                             <p className="mt-10 text-center text-sm text-gray-500">
                                 Not a member?{' '}
                                 <a href="/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
