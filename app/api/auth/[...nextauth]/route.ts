@@ -43,6 +43,11 @@ const authOptions:NextAuthOptions={
     session: {
         strategy: "jwt"
     },
+    callbacks: {
+        session({ session, token, user }) {
+            return session // The return type will match the one returned in `useSession()`
+        },
+    },
     debug: process.env.NODE_ENV === "development",
 }
 const handler=NextAuth(authOptions);
