@@ -4,15 +4,16 @@ import {json} from "stream/consumers";
 import {NextApiRequest} from "next";
 import {id} from "postcss-selector-parser";
 import LinkWhereInput = Prisma.LinkWhereInput;
-const prismaClient=new PrismaClient();
+import client from "@/utils/prismadb";
+// const prismaClient=new PrismaClient();
 export async function GET(){
-    const response=await prismaClient.link.findMany()
+    const response=await client.link.findMany()
     return new Response(JSON.stringify(response))
 }
 export async function POST(req: NextRequest){
     const body=await req.json()
     if ( body !== null ){
-        await prismaClient.link.create({
+        await client.link.create({
             data: body
         })
         // res.status(200).body(JSON.stringify({message: "Data Posted Successful."}))
@@ -29,7 +30,7 @@ export async function DELETE(req: NextRequest){
     if ( body !== null ) {
         console.log(body.id)
         // const response=await prismaClient.link.findUnique({where: {id: 5}})
-        const delResponse=await prismaClient.link.delete({where: {id: body.id}, select: {title: true}})
+        const delResponse=await client.link.delete({where: {id: body.id}, select: {title: true}})
         const messagePro=delResponse.title+ " Link Deleted";
         return NextResponse.json({message: messagePro, status: 200});
     }

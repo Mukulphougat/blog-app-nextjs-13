@@ -1,10 +1,11 @@
 import {NextRequest} from "next/server";
 import {PrismaClient} from "@prisma/client";
 import {links} from "@/data/links";
-const prismaClient=new PrismaClient()
+import client from "@/utils/prismadb";
+// const prismaClient=new PrismaClient()
 export async function GET(req: Request){
     try {
-        // await prismaClient.link.createMany({
+        // await client.link.createMany({
         //     data: links
         // });
         return new Response(JSON.stringify({hello: "Hello World!"}))
