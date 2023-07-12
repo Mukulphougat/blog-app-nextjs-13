@@ -1,5 +1,6 @@
 import React from 'react';
 import {ServerActionToDelete} from "@/components/ServerActionToUpload";
+import {revalidatePath} from "next/cache";
 
 interface Props {
     imageUrl: string;
@@ -18,11 +19,15 @@ export const AwesomeLink: React.FC<Props> = ({
                                                  description,
                                                  id,
                                              }) => {
+    const deleteQuery=async (id)=>{
+        const response=await ServerActionToDelete(id);
+        revalidatePath("/");
+    }
     return (
         <div key={id} className="shadow h-76 max-w-md rounded">
             <div className={"w-full flex flex-row justify-evenly"}>
                 <img alt={'image'} className={"w-4/5 h-40"} src={imageUrl} />
-                <div onClick={()=>ServerActionToDelete(id)} className={"w-1/5 flex flex-col"}>
+                <div onClick={()=>deleteQuery(id)} className={"w-1/5 flex flex-col"}>
                     <img src={"https://img.icons8.com/ios/50/C805EC/delete-sign--v1.png"} width={40} height={40} alt={"CLOSE"} className={"mx-1 my-1 bg-white self-end"} />
                 </div>
             </div>
