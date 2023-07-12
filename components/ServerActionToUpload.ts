@@ -7,7 +7,7 @@ export async function ServerActionToUpload(category: string, imageURL: string, i
     // return await response.json();
 }
 export async function ServerActionToDelete(id: number){
-    const response=await fetch("/api/linksAll", {
+    const response=await fetch("https://blog-app-nextjs-13-6hmxz4jnk-mukulphougat.vercel.app/api/linksAll", {
         method: "DELETE",
         body: JSON.stringify({id: id})
     })
