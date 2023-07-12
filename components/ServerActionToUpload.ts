@@ -7,7 +7,7 @@ export async function ServerActionToUpload(category: string, imageURL: string, i
     // return await response.json();
 }
 export async function ServerActionToDelete(id: number){
-    const response=await fetch("http://localhost:3000/api/linksAll", {
+    const response=await fetch("/api/linksAll", {
         method: "DELETE",
         body: JSON.stringify({id: id})
     })
