@@ -8,8 +8,9 @@ export async function GET(){
 }
 export async function POST(req: NextRequest){
     const body=await req.json()
+    const prismaClient=new PrismaClient();
     if ( body !== null ){
-        await client.link.create({
+        await prismaClient.link.create({
             data: body
         })
         // res.status(200).body(JSON.stringify({message: "Data Posted Successful."}))

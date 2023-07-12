@@ -20,20 +20,20 @@ export default function Upload(){
     const session=useSession()
     const [show,setShow]=useState(false);
     const router=useRouter();
-    const formSchema = z
-        .object({
-            category: z.string().min(4, "Category is required").max(100),
-            title: z.string().min(1, "Title is required"),
-            url: z.string().url("Invalid URL").min(5,"URL is required"),
-            imageURL: z.string().url("Invalid URL").min(5,"URL is required"),
-            id: z.number().min(1).max(1000),
-            description: z.string().min(1,"Description is required")
-        })
-    const {register,watch,handleSubmit,formState: {errors,isSubmitting}}=useForm<formData>({resolver: zodResolver(formSchema)})
-    const myFormData=watch();
-    const submitData=(data: formData)=>{
-        console.log("HANDLING SUBMIT", data)
-    }
+    // const formSchema = z
+    //     .object({
+    //         category: z.string().min(4, "Category is required").max(100),
+    //         title: z.string().min(1, "Title is required"),
+    //         url: z.string().url("Invalid URL").min(5,"URL is required"),
+    //         imageURL: z.string().url("Invalid URL").min(5,"URL is required"),
+    //         id: z.number().min(1).max(1000),
+    //         description: z.string().min(1,"Description is required")
+    //     })
+    // const {register,watch,handleSubmit,formState: {errors,isSubmitting}}=useForm<formData>({resolver: zodResolver(formSchema)})
+    // const myFormData=watch();
+    // const submitData=(data: formData)=>{
+    //     console.log("HANDLING SUBMIT", data)
+    // }
     async function postData(formData: FormData)  {
         const category=formData.get("category") as string;
         const title=formData.get("title") as string;
@@ -61,15 +61,15 @@ export default function Upload(){
                 session?.status === "authenticated" ?
                     <div className={"my-10 w-full grid place-items-center text-gray-400"}>
                         <div className="w-full max-w-xs">
-                            <form onSubmit={handleSubmit(submitData)} action={postData} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                            <form action={postData} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                                         Category
                                     </label>
                                     <input
                                         required={true} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id={"category"} type="text" placeholder="Category" {...register("category")}/>
-                                    {errors.category && <span className={"text-lg text-red-800 font-mono"}>{errors.category.message}</span>}
+                                        name={"category"}  type="text" placeholder="Category" />
+                                    {/*{errors.category && <span className={"text-lg text-red-800 font-mono"}>{errors.category.message}</span>}*/}
 
                                 </div>
                                 <div className="mb-4">
@@ -78,8 +78,8 @@ export default function Upload(){
                                     </label>
                                     <input required={true}
                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                           id={"description"} type="text" placeholder="Description" {...register("description")}/>
-                                    {errors.description && <span className={"text-lg text-red-800 font-mono"}>{errors.description.message}</span>}
+                                           name={"description"} type="text" placeholder="Description" />
+                                    {/*{errors.description && <span className={"text-lg text-red-800 font-mono"}>{errors.description.message}</span>}*/}
 
                                 </div>
                                 <div className="mb-4">
@@ -88,8 +88,8 @@ export default function Upload(){
                                     </label>
                                     <input required={true}
                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                           id={"id"} type="number" placeholder="ID" {...register("id", {valueAsNumber: true})}/>
-                                    {errors.id && <span className={"text-lg text-red-800 font-mono"}>{errors.id.message}</span>}
+                                           name={"id"} type="number" placeholder="ID" />
+                                    {/*{errors.id && <span className={"text-lg text-red-800 font-mono"}>{errors.id.message}</span>}*/}
 
                                 </div>
                                 <div className="mb-4">
@@ -98,8 +98,8 @@ export default function Upload(){
                                     </label>
                                     <input required={true}
                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                           id={"imageURL"} type="text" placeholder="Description" {...register("imageURL")}/>
-                                    {errors.imageURL && <span className={"text-lg text-red-800 font-mono"}>{errors.imageURL.message}</span>}
+                                           name={"imageURL"} type="text" placeholder="Description" />
+                                    {/*{errors.imageURL && <span className={"text-lg text-red-800 font-mono"}>{errors.imageURL.message}</span>}*/}
 
                                 </div>
                                 <div className="mb-4">
@@ -108,8 +108,8 @@ export default function Upload(){
                                     </label>
                                     <input required={true}
                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                           id={"title"} type="text" placeholder={"Title"} {...register("title")}/>
-                                    {errors.title && <span className={"text-lg text-red-800 font-mono"}>{errors.title.message}</span>}
+                                           name={"title"} type="text" placeholder={"Title"} />
+                                    {/*{errors.title && <span className={"text-lg text-red-800 font-mono"}>{errors.title.message}</span>}*/}
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
@@ -117,13 +117,13 @@ export default function Upload(){
                                     </label>
                                     <input required={true}
                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                           id={"url"} type="text" placeholder="URL" {...register("url")}/>
-                                    {errors.url && <span className={"text-lg text-red-800 font-mono"}>{errors.url.message}</span>}
+                                           name={"url"} type="text" placeholder="URL" />
+                                    {/*{errors.url && <span className={"text-lg text-red-800 font-mono"}>{errors.url.message}</span>}*/}
                                 </div>
                                 <div className="flex items-center justify-around">
                                     <button
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                        type="submit">
+                                        type={"submit"}>
                                         Submit
                                     </button>
                                     {/*<a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"*/}
